@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "720656502926",
+    "project_id": "wpi-parking-app",
+    "storage_bucket": "wpi-parking-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720656502926:android:26d2d9004928f0c1ca39df",
+        "android_client_info": {
+          "package_name": "com.example.parking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720656502926-2tt96maph6hsvig89n6uph1qioc11ppa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuN01Q_4_MWNXISWiPR_hOVnLfeMDzopE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720656502926-2tt96maph6hsvig89n6uph1qioc11ppa.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "720656502926-sei22toklfhb8213nsb8itbdptp6q737.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.parking"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
