@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:parking/pages/find_parking_page.dart';
+import 'package:parking/pages/enter_destination_page.dart';
 import 'package:parking/main.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,18 +12,25 @@ class HomePage extends StatelessWidget {
     String findSpotThereName = "Find a Spot from a Destination";
     String addParkingName = "Add a Parking Spot Location";
     String logOutName = "Log Out";
+    double headerHeight = 56;
+    double paddingAmount = 5;
     double boxWidth = MediaQuery.of(context).size.width * 0.9;
-    double boxHeight = (MediaQuery.of(context).size.height - 115) * 0.30;
+    double boxHeight = (MediaQuery.of(context).size.height -
+            headerHeight -
+            24 -
+            8 * paddingAmount) *
+        0.30;
     double logoutWidth = MediaQuery.of(context).size.width * 0.3;
-    double logOutHeight = MediaQuery.of(context).size.height * 0.05;
-    double paddingAmount = ((MediaQuery.of(context).size.height - 115) -
-            3 * (boxHeight) -
-            logOutHeight) /
-        8;
+    double logOutHeight = (MediaQuery.of(context).size.height -
+            headerHeight -
+            24 -
+            8 * paddingAmount) *
+        0.1;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home", textAlign: TextAlign.center),
+        toolbarHeight: headerHeight,
       ),
       body: Center(
         child: SizedBox(
@@ -32,74 +41,63 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
+                  padding:
+                      EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+                  child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return const FindParkingPage(
+                                latitude: 42.276299225733396,
+                                longitude: -71.79985474457845);
+                          }));
+                        },
+                        child: Text(
+                          findSpotHereName,
+                          style: TextStyle(fontSize: boxWidth / 20),
                         ),
-                      );
-                    },
-                    child: Text(
-                      findSpotHereName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
-                  ),
-                ),
-              ),
+                      ))),
               Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
+                  padding:
+                      EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+                  child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return const EnterDestinationPage();
+                          }));
+                        },
+                        child: Text(
+                          findSpotThereName,
+                          style: TextStyle(fontSize: boxWidth / 20),
                         ),
-                      );
-                    },
-                    child: Text(
-                      findSpotThereName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
-                  ),
-                ),
-              ),
+                      ))),
               Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
+                  padding:
+                      EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+                  child: SizedBox(
+                      width: boxWidth,
+                      height: boxHeight,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) {
+                            return const FindParkingPage(
+                                latitude: 42.276299225733396,
+                                longitude: -71.79985474457845);
+                          }));
+                        },
+                        child: Text(
+                          addParkingName,
+                          style: TextStyle(fontSize: boxWidth / 20),
                         ),
-                      );
-                    },
-                    child: Text(
-                      addParkingName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
-                  ),
-                ),
-              ),
+                      ))),
               Padding(
                 padding:
                     EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
@@ -109,12 +107,9 @@ class HomePage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
-                        ),
-                      );
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const MyApp();
+                      }));
                     },
                     child: Text(
                       logOutName,
