@@ -52,7 +52,8 @@ class HomePage extends StatelessWidget {
                               builder: (BuildContext context) {
                             return const FindParkingPage(
                                 latitude: 42.276299225733396,
-                                longitude: -71.79985474457845);
+                                longitude:
+                                    -71.79985474457845); //TODO get input destination and pass it in
                           }));
                         },
                         child: Text(

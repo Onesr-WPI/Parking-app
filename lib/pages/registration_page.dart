@@ -94,9 +94,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               final userCredential = FirebaseAuth.instance
                                   .createUserWithEmailAndPassword(
                                       email: email, password: password)
-                                  .then((value) {
-                                print(value);
-                              });
+                                  .then((value) {});
                               // send username and password to firebase and log in the user
                             },
                             child: const Text("Register"))
