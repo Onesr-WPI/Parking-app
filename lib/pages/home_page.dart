@@ -8,8 +8,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String findSpotHereName = "Find a Spot from Your Current Location";
-    String findSpotThereName = "Find a Spot from a Destination";
+    String findSpotName = "Find a Spot";
     String addParkingName = "Add a Parking Spot Location";
     String logOutName = "Log Out";
     double headerHeight = 56;
@@ -18,13 +17,13 @@ class HomePage extends StatelessWidget {
     double boxHeight = (MediaQuery.of(context).size.height -
             headerHeight -
             24 -
-            8 * paddingAmount) *
-        0.30;
+            6 * paddingAmount) *
+        0.3;
     double logoutWidth = MediaQuery.of(context).size.width * 0.3;
     double logOutHeight = (MediaQuery.of(context).size.height -
             headerHeight -
             24 -
-            8 * paddingAmount) *
+            6 * paddingAmount) *
         0.1;
 
     return Scaffold(
@@ -50,32 +49,11 @@ class HomePage extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) {
-                            return const FindParkingPage(
-                                latitude: 42.276299225733396,
-                                longitude:
-                                    -71.79985474457845); //TODO get input destination and pass it in
-                          }));
-                        },
-                        child: Text(
-                          findSpotHereName,
-                          style: TextStyle(fontSize: boxWidth / 20),
-                        ),
-                      ))),
-              Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                  child: SizedBox(
-                      width: boxWidth,
-                      height: boxHeight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) {
                             return const EnterDestinationPage();
                           }));
                         },
                         child: Text(
-                          findSpotThereName,
+                          findSpotName,
                           style: TextStyle(fontSize: boxWidth / 20),
                         ),
                       ))),
@@ -91,7 +69,8 @@ class HomePage extends StatelessWidget {
                               builder: (BuildContext context) {
                             return const FindParkingPage(
                                 latitude: 42.276299225733396,
-                                longitude: -71.79985474457845);
+                                longitude: -71.79985474457845,
+                                relation: "from you");
                           }));
                         },
                         child: Text(

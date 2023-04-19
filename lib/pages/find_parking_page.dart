@@ -6,10 +6,14 @@ import 'package:parking/pages/view_lot_page.dart';
 
 class FindParkingPage extends StatefulWidget {
   const FindParkingPage(
-      {super.key, required this.latitude, required this.longitude});
+      {super.key,
+      required this.latitude,
+      required this.longitude,
+      required this.relation});
 
   final double latitude;
   final double longitude;
+  final String relation;
 
   @override
   State<FindParkingPage> createState() => FindParkingState();
@@ -27,15 +31,12 @@ class FindParkingState extends State<FindParkingPage> {
       double longitude = double.parse(result.get("Long"));
       int spots = int.parse(result.get("Total Spots"));
       String name = result.get("Name") as String;
-      double distance = double.parse((acos(
-                  sin(widget.latitude * pi / 180) * sin(latitude * pi / 180) +
-                      cos(widget.latitude * pi / 180) *
-                          cos(latitude * pi / 180) *
-                          cos((longitude - widget.longitude) * pi / 180)) *
-              3958.8)
-          .toStringAsFixed(
-              2)); //Conversion from lat/long to distance, according to google
-      distance.round();
+      double distance = acos(
+              sin(widget.latitude * pi / 180) * sin(latitude * pi / 180) +
+                  cos(widget.latitude * pi / 180) *
+                      cos(latitude * pi / 180) *
+                      cos((longitude - widget.longitude) * pi / 180)) *
+          3958.8; //Conversion from lat/long to distance, according to google
       distMap.putIfAbsent(
           //enters distance and corresponding widget w/data into hashmap
           distance,
@@ -56,7 +57,8 @@ class FindParkingState extends State<FindParkingPage> {
                               spots: spots);
                         }));
                       },
-                      child: Text("$name\n $distance miles from you")),
+                      child: Text(
+                          "$name\n ${distance.toStringAsFixed(2)} miles ${widget.relation}")),
                 ),
               ));
     }

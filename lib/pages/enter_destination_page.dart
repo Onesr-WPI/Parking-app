@@ -87,9 +87,12 @@ class EnterDestinationPage extends StatelessWidget {
                     // send username and password to firebase and log in the user
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
+                      print("$Address $City $State");
                       return const FindParkingPage(
-                          latitude: 42.276299225733396,
-                          longitude: -71.79985474457845);
+                        latitude: 42.276299225733396,
+                        longitude: -71.79985474457845,
+                        relation: "from your destination",
+                      );
                     }));
                   },
                   child: const Text("Enter")),
@@ -98,10 +101,22 @@ class EnterDestinationPage extends StatelessWidget {
                     // send username and password to firebase and log in the user
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
+                      return const FindParkingPage(
+                          latitude: 42.276299225733396,
+                          longitude: -71.79985474457845,
+                          relation: "from you");
+                    }));
+                  },
+                  child: const Text("Use Current Location")),
+              ElevatedButton(
+                  onPressed: () {
+                    // send username and password to firebase and log in the user
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
                       return const HomePage();
                     }));
                   },
-                  child: const Text("Enter Using Google Maps")),
+                  child: const Text("Use Google Maps")),
             ],
           ),
         ),
