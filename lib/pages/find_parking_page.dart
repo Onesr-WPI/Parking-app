@@ -81,9 +81,7 @@ class FindParkingState extends State<FindParkingPage> {
           if (snapshot.hasData) {
             return Scaffold(
               appBar: AppBar(
-                title: Text(
-                    "Find Parking, Test Coordinates: ${widget.latitude},${widget.longitude}",
-                    textAlign: TextAlign.center),
+                title: const Text("Find Parking", textAlign: TextAlign.center),
               ),
               body: Center(
                 child: SizedBox(
