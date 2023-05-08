@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parking/pages/login_page.dart';
+import 'package:parking/pages/test_page.dart';
 import 'package:parking/pages/registration_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -95,6 +96,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               child: Text(registrationName),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return const TestPage();
+                  }));
+                });
+              },
+              child: Text("test"),
             ),
           ],
         ),
