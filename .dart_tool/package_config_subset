@@ -250,10 +250,6 @@ vector_math
 2.14
 file:///Users/omarelnesr/.pub-cache/hosted/pub.dev/vector_math-2.1.4/
 file:///Users/omarelnesr/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib/
-parking
-2.19
-file:///Users/omarelnesr/Desktop/parking/
-file:///Users/omarelnesr/Desktop/parking/lib/
 sky_engine
 2.12
 file:///Users/omarelnesr/flutter/bin/cache/pkg/sky_engine/
@@ -270,4 +266,8 @@ flutter_web_plugins
 2.17
 file:///Users/omarelnesr/flutter/packages/flutter_web_plugins/
 file:///Users/omarelnesr/flutter/packages/flutter_web_plugins/lib/
+parking
+2.19
+file:///Users/omarelnesr/parking/
+file:///Users/omarelnesr/parking/lib/
 2
