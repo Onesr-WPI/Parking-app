@@ -152,7 +152,33 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
               ElevatedButton(
                   onPressed: () async {
                     List<Location> locations =
-                        await locationFromAddress("$address, $city");
+                        await locationFromAddress("$address, $city")
+                            .catchError((e) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Stack(
+                                children: <Widget>[
+                                  Positioned(
+                                    right: -40.0,
+                                    top: -40.0,
+                                    child: InkResponse(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const CircleAvatar(
+                                        backgroundColor: Colors.red,
+                                        child: Icon(Icons.close),
+                                      ),
+                                    ),
+                                  ),
+                                  Text('$e'),
+                                ],
+                              ),
+                            );
+                          });
+                    });
                     // send username and password to firebase and log in the user
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {

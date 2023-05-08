@@ -37,33 +37,7 @@ class _TestPageState extends State<TestPage> {
                             ),
                           ),
                         ),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextFormField(),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ElevatedButton(
-                                  child: const Text("Submitß"),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState?.save();
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
+                        Text("wow"),
                       ],
                     ),
                   );
