@@ -51,10 +51,11 @@ class FindParkingState extends State<FindParkingPage> {
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
                           return ViewLotPage(
-                              latitude: latitude,
-                              longitude: longitude,
-                              name: name,
-                              spots: spots);
+                            latitude: latitude,
+                            longitude: longitude,
+                            name: name,
+                            spots: spots,
+                          );
                         }));
                       },
                       child: Text(
