@@ -56,10 +56,43 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (BuildContext context) {
+        return FindParkingPage(
+            latitude: _currentPosition!.latitude,
+            longitude: _currentPosition!.longitude,
+            relation: "from you");
+      }));
+
       setState(() => _currentPosition = position);
       _getAddressFromLatLng(_currentPosition!);
     }).catchError((e) {
       debugPrint(e);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Stack(
+                children: <Widget>[
+                  Positioned(
+                    right: -40.0,
+                    top: -40.0,
+                    child: InkResponse(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.red,
+                        child: Icon(Icons.close),
+                      ),
+                    ),
+                  ),
+                  Text(
+                      'Location services are currently disabled. Please activate location services if you would like to use this feature.'),
+                ],
+              ),
+            );
+          });
     });
   }
 
@@ -193,45 +226,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                   },
                   child: const Text("Enter")),
               ElevatedButton(
-                  onPressed: () {
-                    _getCurrentPosition;
-
-                    if (_currentPosition != null) {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return FindParkingPage(
-                            latitude: _currentPosition!.latitude,
-                            longitude: _currentPosition!.longitude,
-                            relation: "from you");
-                      }));
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Stack(
-                                children: <Widget>[
-                                  Positioned(
-                                    right: -40.0,
-                                    top: -40.0,
-                                    child: InkResponse(
-                                      onTap: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: const CircleAvatar(
-                                        backgroundColor: Colors.red,
-                                        child: Icon(Icons.close),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                      'Location services are currently disabled. Please activate location services if you would like to use this feature.'),
-                                ],
-                              ),
-                            );
-                          });
-                    }
-                  },
+                  onPressed: _getCurrentPosition,
                   child: const Text("Use Current Location")),
               ElevatedButton(
                   onPressed: () {
