@@ -59,13 +59,10 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) {
         return FindParkingPage(
-            latitude: _currentPosition!.latitude,
-            longitude: _currentPosition!.longitude,
+            latitude: position.latitude,
+            longitude: position.longitude,
             relation: "from you");
       }));
-
-      setState(() => _currentPosition = position);
-      _getAddressFromLatLng(_currentPosition!);
     }).catchError((e) {
       debugPrint(e);
       showDialog(
