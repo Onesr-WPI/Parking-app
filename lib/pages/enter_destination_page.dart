@@ -194,7 +194,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                   child: const Text("Enter")),
               ElevatedButton(
                   onPressed: () {
-                    _getCurrentPosition();
+                    _getCurrentPosition;
 
                     if (_currentPosition != null) {
                       Navigator.of(context).push(
