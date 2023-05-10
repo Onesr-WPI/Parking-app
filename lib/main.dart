@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parking/pages/login_page.dart';
 import 'package:parking/pages/test_page.dart';
+import 'package:parking/pages/home_page.dart';
 import 'package:parking/pages/registration_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -77,7 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () {
                   setState(() {
-                    loginName = "Logged In";
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
                       return const LogInPage();
@@ -88,7 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
-                  registrationName = "Registered";
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (BuildContext context) {
                     return const RegistrationPage();
@@ -97,6 +96,16 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text(registrationName),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return const HomePage();
+                    }));
+                  });
+                },
+                child: const Text("Continue As Guest")),
             ElevatedButton(
               onPressed: () {
                 setState(() {
