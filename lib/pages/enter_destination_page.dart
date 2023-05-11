@@ -56,11 +56,13 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) {
+      _getAddressFromLatLng(position);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (BuildContext context) {
         return FindParkingPage(
             latitude: position.latitude,
             longitude: position.longitude,
+            address: _currentAddress!,
             relation: "from you");
       }));
     }).catchError((e) {
@@ -84,7 +86,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                       ),
                     ),
                   ),
-                  Text(
+                  const Text(
                       'Location services are currently disabled. Please activate location services if you would like to use this feature.'),
                 ],
               ),
@@ -96,6 +98,20 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
   Future<void> _getAddressFromLatLng(Position position) async {
     await placemarkFromCoordinates(
             _currentPosition!.latitude, _currentPosition!.longitude)
+        .then((List<Placemark> placemarks) {
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress =
+            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+      });
+    }).catchError((e) {
+      debugPrint(e);
+    });
+  }
+
+  Future<void> _getAddressFromLatLngDouble(
+      double latitude, double longitude) async {
+    await placemarkFromCoordinates(latitude, longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
       setState(() {
@@ -184,9 +200,9 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
               ElevatedButton(
                   onPressed: () async {
                     List<Location> locations =
-                        await locationFromAddress("$address, $city")
-                            .catchError((e) {
-                      showDialog(
+                        await locationFromAddress("$address, $city").catchError(
+                      (e) {
+                        showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
@@ -209,17 +225,26 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                                 ],
                               ),
                             );
-                          });
-                    });
+                          },
+                        );
+                      },
+                    );
+
+                    await _getAddressFromLatLngDouble(
+                        locations[0].latitude, locations[0].longitude);
                     // send username and password to firebase and log in the user
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return FindParkingPage(
-                        latitude: locations[0].latitude,
-                        longitude: locations[0].longitude,
-                        relation: "from your destination",
-                      );
-                    }));
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return FindParkingPage(
+                            latitude: locations[0].latitude,
+                            longitude: locations[0].longitude,
+                            address: _currentAddress!,
+                            relation: "from your destination",
+                          );
+                        },
+                      ),
+                    );
                   },
                   child: const Text("Enter")),
               ElevatedButton(

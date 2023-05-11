@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:dio/dio.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -9,6 +10,22 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
+  Response<dynamic>? _response;
+  void _getDistanceMatrix() async {
+    try {
+      await Dio()
+          .get(
+              'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=40.659569,-73.933783&origins=40.6655101,-73.89188969999998&key=AIzaSyCuN01Q_4_MWNXISWiPR_hOVnLfeMDzopE')
+          .then(
+        (Response<dynamic> response) {
+          setState(() => _response = response);
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   String? _currentAddress;
   Position? _currentPosition;
 
@@ -72,7 +89,43 @@ class _TestPageState extends State<TestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Location Page")),
-      body: SafeArea(
+      body:
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     Expanded(
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         crossAxisAlignment: CrossAxisAlignment.stretch,
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [Text('Monthly Membership'), Text('Subscription')],
+          //       ),
+          //     ),
+          //     IntrinsicWidth(
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         crossAxisAlignment: CrossAxisAlignment.stretch,
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: [
+          //           Text(
+          //             '+100',
+          //             maxLines: 1,
+          //             softWrap: false,
+          //             overflow: TextOverflow.fade,
+          //           ),
+          //           Text(
+          //             '18 Sept 2021',
+          //             maxLines: 1,
+          //             softWrap: false,
+          //             overflow: TextOverflow.fade,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // ),
+
+          SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -80,9 +133,10 @@ class _TestPageState extends State<TestPage> {
               Text('LAT: ${_currentPosition?.latitude ?? ""}'),
               Text('LNG: ${_currentPosition?.longitude ?? ""}'),
               Text('ADDRESS: ${_currentAddress ?? ""}'),
+              Text('google maps: ${_response}'),
               const SizedBox(height: 32),
               ElevatedButton(
-                onPressed: _getCurrentPosition,
+                onPressed: _getDistanceMatrix,
                 child: const Text("Get Current Location"),
               )
             ],

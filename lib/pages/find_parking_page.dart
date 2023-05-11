@@ -9,8 +9,10 @@ class FindParkingPage extends StatefulWidget {
       {super.key,
       required this.latitude,
       required this.longitude,
+      required this.address,
       required this.relation});
 
+  final String address;
   final double latitude;
   final double longitude;
   final String relation;
@@ -51,6 +53,9 @@ class FindParkingState extends State<FindParkingPage> {
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
                           return ViewLotPage(
+                            destinationLatitude: widget.latitude,
+                            destinationLongitude: widget.longitude,
+                            destinationAddress: widget.address,
                             latitude: latitude,
                             longitude: longitude,
                             name: name,
@@ -102,7 +107,7 @@ class FindParkingState extends State<FindParkingPage> {
                     ],
                   ),
                 ),
-              ), // This trailing comma makes auto-formatting nicer for build methods.
+              ),
             );
           } else {
             return const CircularProgressIndicator(

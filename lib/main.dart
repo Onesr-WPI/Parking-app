@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:parking/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:parking/pages/test_page.dart';
 import 'package:parking/pages/home_page.dart';
 import 'package:parking/pages/registration_page.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() {
@@ -61,65 +61,132 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    String registrationName = "Registration";
+    String registrationName = "Register Instead";
     String loginName = "Log In";
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const LogInPage();
-                    }));
-                  });
-                },
-                child: Text(loginName)),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return const RegistrationPage();
-                  }));
-                });
-              },
-              child: Text(registrationName),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const HomePage();
-                    }));
-                  });
-                },
-                child: const Text("Continue As Guest")),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return const TestPage();
-                  }));
-                });
-              },
-              child: Text("test"),
-            ),
-          ],
-        ),
-      ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Please log in to use the app."),
+                    FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _email,
+                        decoration: const InputDecoration(
+                          hintText: "Email Address",
+                        ),
+                      ),
+                    ),
+                    FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: TextField(
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        controller: _password,
+                        decoration: const InputDecoration(
+                          hintText: "Password",
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            final email = _email.text;
+                            final password = _password.text;
+                            FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                                    email: email, password: password)
+                                .then((value) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return const HomePage();
+                              }));
+                            });
+                          },
+                          child: const Text("Log In"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return const RegistrationPage();
+                              }));
+                            });
+                          },
+                          child: Text(registrationName),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                  return const HomePage();
+                                }));
+                              });
+                            },
+                            child: const Text("Continue As Guest")),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return const TestPage();
+                              }));
+                            });
+                          },
+                          child: Text("test"),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          default:
+            return const Text("Loading...");
+        }
+      },
     );
   }
 }

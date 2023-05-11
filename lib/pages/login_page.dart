@@ -32,59 +32,61 @@ class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text("Login Page"),
-                ),
-                body: Container(
-                  padding: const EdgeInsets.all(8),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        TextField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _email,
-                          decoration: const InputDecoration(
-                            hintText: "Email Address",
-                          ),
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text("Login Page"),
+              ),
+              body: Container(
+                padding: const EdgeInsets.all(8),
+                child: Center(
+                  child: Column(
+                    children: [
+                      TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        controller: _email,
+                        decoration: const InputDecoration(
+                          hintText: "Email Address",
                         ),
-                        TextField(
-                          keyboardType: TextInputType.text,
-                          obscureText: true,
-                          controller: _password,
-                          decoration: const InputDecoration(
-                            hintText: "Password",
-                          ),
+                      ),
+                      TextField(
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        controller: _password,
+                        decoration: const InputDecoration(
+                          hintText: "Password",
                         ),
-                        ElevatedButton(
-                            onPressed: () {
-                              final email = _email.text;
-                              final password = _password.text;
-                              FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                      email: email, password: password)
-                                  .then((value) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                  return const HomePage();
-                                }));
-                              });
-                            },
-                            child: const Text("Log In"))
-                      ],
-                    ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          final email = _email.text;
+                          final password = _password.text;
+                          FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: email, password: password)
+                              .then((value) {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return const HomePage();
+                            }));
+                          });
+                        },
+                        child: const Text("Log In"),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            default:
-              return const Text("Loading...");
-          }
-        });
+              ),
+            );
+          default:
+            return const Text("Loading...");
+        }
+      },
+    );
   }
 }
