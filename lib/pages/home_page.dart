@@ -3,6 +3,7 @@ import 'package:parking/pages/find_parking_page.dart';
 import 'package:parking/main.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:parking/pages/enter_destination_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -296,43 +297,44 @@ class _HomePageState extends State<HomePage> {
                     child: const Text("Current Location")),
               ],
             ),
-            // ElevatedButton(
-            //     onPressed: () {
-            //       Navigator.of(context)
-            //           .push(MaterialPageRoute(builder: (BuildContext context) {
-            //         return const HomePage();
-            //       }));
-            //     },
-            //     child: const Text("Use Google Maps"),),
-            // Padding(
-            //   padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-            //   child: SizedBox(
-            //     width: boxWidth,
-            //     height: boxHeight,
-            //     child: ElevatedButton(
-            //       onPressed: () {
-            //         // Navigator.of(context).push(
-            //         //   MaterialPageRoute(
-            //         //     builder: (BuildContext context) {
-            //         //       return const FindParkingPage(
-            //         //           latitude: 42.276299225733396,
-            //         //           longitude: -71.79985474457845,
-            //         //           relation: "from you");
-            //         //     },
-            //         //   ),
-            //         // );
-            //       },
-            //       child: Align(
-            //         alignment: Alignment.center,
-            //         child: Text(
-            //           addParkingName,
-            //           style: TextStyle(fontSize: boxWidth / 10),
-            //           textAlign: TextAlign.center,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return const EnterDestinationPage();
+                }));
+              },
+              child: const Text("Use Google Maps"),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+              child: SizedBox(
+                width: boxWidth,
+                height: boxHeight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (BuildContext context) {
+                    //       return const FindParkingPage(
+                    //           latitude: 42.276299225733396,
+                    //           longitude: -71.79985474457845,
+                    //           relation: "from you");
+                    //     },
+                    //   ),
+                    // );
+                  },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      addParkingName,
+                      style: TextStyle(fontSize: boxWidth / 10),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
               child: SizedBox(

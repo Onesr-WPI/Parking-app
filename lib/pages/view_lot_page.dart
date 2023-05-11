@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:parking/MapUtils.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:dio/dio.dart';
+import 'dart:convert';
 
 class ViewLotPage extends StatefulWidget {
   const ViewLotPage({
@@ -36,6 +38,27 @@ class ViewLotPageState extends State<ViewLotPage> {
     }
   }
 
+  Response<dynamic>? _response;
+  Map<String, dynamic>? _map;
+
+  void _getDistanceMatrix() async {
+    try {
+      await Dio()
+          .get(
+              'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${widget.destinationLatitude},${widget.destinationLongitude}&origins=${widget.latitude},${widget.longitude}&mode=walking&key=AIzaSyCuN01Q_4_MWNXISWiPR_hOVnLfeMDzopE')
+          .then(
+        (Response<dynamic> response) {
+          setState(() {
+            _map = jsonDecode('$response');
+            _response = response;
+          });
+        },
+      );
+    } catch (e) {
+      print('$e');
+    }
+  }
+
   String? _currentAddress;
   late GoogleMapController mapController;
 
@@ -58,8 +81,14 @@ class ViewLotPageState extends State<ViewLotPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _getAddressFromLatLngDouble(widget.latitude, widget.longitude);
+    _getDistanceMatrix;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final LatLng _center = LatLng(widget.latitude, widget.longitude);
     final Set<Marker> _marker = {
       Marker(markerId: MarkerId(widget.name), position: _center)
@@ -107,13 +136,25 @@ class ViewLotPageState extends State<ViewLotPage> {
                 children: [
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.values[5],
                       children: [
                         Text(
-                            "Destination Address: ${widget.destinationAddress}"),
+                          "Destination Address: ${widget.destinationAddress}",
+                          style: TextStyle(fontSize: 20),
+                        ),
                         // if (_currentAddress != null)
-                        Text("Parking Lot Address: $_currentAddress"),
-                        Text("# Spots: ${widget.spots}")
+                        Text(
+                          "Parking Lot Address: $_currentAddress",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          "Total # Of Spots: ${widget.spots}",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          "Time for Walking: ${_map?['rows'][0]['elements'][0]['duration']['text']}",
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ],
                     ),
                   ),

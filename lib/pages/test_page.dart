@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:dio/dio.dart';
+import 'dart:convert';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -11,18 +12,23 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
   Response<dynamic>? _response;
+  Map<String, dynamic>? _map;
+
   void _getDistanceMatrix() async {
     try {
       await Dio()
           .get(
-              'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=40.659569,-73.933783&origins=40.6655101,-73.89188969999998&key=AIzaSyCuN01Q_4_MWNXISWiPR_hOVnLfeMDzopE')
+              'https://maps.googleapis.com/maps/api/distancematrix/json?destinations=40.659569,-73.933783&origins=40.6655101,-73.89188969999998&mode=walking&key=AIzaSyCuN01Q_4_MWNXISWiPR_hOVnLfeMDzopE')
           .then(
         (Response<dynamic> response) {
-          setState(() => _response = response);
+          setState(() {
+            _map = jsonDecode('$response');
+            _response = response;
+          });
         },
       );
     } catch (e) {
-      print(e);
+      print('$e');
     }
   }
 
@@ -134,6 +140,8 @@ class _TestPageState extends State<TestPage> {
               Text('LNG: ${_currentPosition?.longitude ?? ""}'),
               Text('ADDRESS: ${_currentAddress ?? ""}'),
               Text('google maps: ${_response}'),
+              Text(
+                  'google maps 2: ${_map?['rows'][0]['elements'][0]['duration']['text']}'),
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: _getDistanceMatrix,
