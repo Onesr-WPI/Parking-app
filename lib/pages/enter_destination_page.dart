@@ -55,16 +55,23 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
 
     if (!hasPermission) return;
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) {
-      _getAddressFromLatLng(position);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (BuildContext context) {
-        return FindParkingPage(
-            latitude: position.latitude,
-            longitude: position.longitude,
-            address: _currentAddress!,
-            relation: "from you");
-      }));
+        .then((Position position) async {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
+      Placemark place = placemarks[0];
+      String destinationAddress =
+          '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (BuildContext context) {
+            return FindParkingPage(
+                latitude: position.latitude,
+                longitude: position.longitude,
+                address: destinationAddress,
+                relation: "from you");
+          },
+        ),
+      );
     }).catchError((e) {
       debugPrint(e);
       showDialog(
@@ -105,7 +112,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
             '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       });
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint('$e');
     });
   }
 
@@ -248,7 +255,9 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                   },
                   child: const Text("Enter")),
               ElevatedButton(
-                  onPressed: _getCurrentPosition,
+                  onPressed: () {
+                    _getCurrentPosition();
+                  },
                   child: const Text("Use Current Location")),
               ElevatedButton(
                   onPressed: () {
