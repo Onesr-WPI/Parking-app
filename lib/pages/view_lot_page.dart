@@ -29,6 +29,13 @@ class ViewLotPage extends StatefulWidget {
 }
 
 class ViewLotPageState extends State<ViewLotPage> {
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
   String? _currentAddress;
   late GoogleMapController mapController;
 
@@ -42,7 +49,7 @@ class ViewLotPageState extends State<ViewLotPage> {
             '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
       });
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint('$e');
     });
   }
 
@@ -54,9 +61,6 @@ class ViewLotPageState extends State<ViewLotPage> {
   Widget build(BuildContext context) {
     _getAddressFromLatLngDouble(widget.latitude, widget.longitude);
     final LatLng _center = LatLng(widget.latitude, widget.longitude);
-    final Set<Marker> _marker2 = {
-      Marker(markerId: MarkerId(widget.name), position: _center)
-    };
     final Set<Marker> _marker = {
       Marker(markerId: MarkerId(widget.name), position: _center)
     };
@@ -107,7 +111,9 @@ class ViewLotPageState extends State<ViewLotPage> {
                       children: [
                         Text(
                             "Destination Address: ${widget.destinationAddress}"),
+                        // if (_currentAddress != null)
                         Text("Parking Lot Address: $_currentAddress"),
+                        Text("# Spots: ${widget.spots}")
                       ],
                     ),
                   ),

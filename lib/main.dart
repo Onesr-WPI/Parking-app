@@ -142,12 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return const RegistrationPage();
-                              }));
-                            });
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return const RegistrationPage();
+                            }));
                           },
                           child: Text(registrationName),
                         ),
@@ -158,22 +156,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         ElevatedButton(
                             onPressed: () {
-                              setState(() {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                  return const HomePage();
-                                }));
-                              });
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return const HomePage();
+                                  },
+                                ),
+                              );
                             },
                             child: const Text("Continue As Guest")),
                         ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return const TestPage();
-                              }));
-                            });
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return const TestPage();
+                            }));
                           },
                           child: Text("test"),
                         ),

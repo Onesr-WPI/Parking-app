@@ -130,12 +130,12 @@ class _HomePageState extends State<HomePage> {
     String logOutName = "Log Out";
     double headerHeight = 56;
     double paddingAmount = 5;
-    double boxWidth = MediaQuery.of(context).size.width * 0.9;
+    double boxWidth = MediaQuery.of(context).size.width * 0.6;
     double boxHeight = (MediaQuery.of(context).size.height -
             headerHeight -
             24 -
             6 * paddingAmount) *
-        0.3;
+        0.2;
     double logoutWidth = MediaQuery.of(context).size.width * 0.3;
     double logOutHeight = (MediaQuery.of(context).size.height -
             headerHeight -
@@ -149,28 +149,37 @@ class _HomePageState extends State<HomePage> {
         toolbarHeight: headerHeight,
       ),
       body: Center(
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              FractionallySizedBox(
-                widthFactor: 0.4,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 20),
+                child: Text(
+                  "Where would you like to go today?",
+                  style: TextStyle(fontSize: 20),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Flexible(
+              child: FractionallySizedBox(
+                widthFactor: 0.8,
                 child: TextFormField(
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     hintText: "Address",
                     border: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(color: Colors.grey, width: 32.0),
+                          const BorderSide(color: Colors.black, width: 32.0),
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                       borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
+                          const BorderSide(color: Colors.black, width: 1.0),
                     ),
                   ),
                   onChanged: (value) {
@@ -178,45 +187,60 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              FractionallySizedBox(
-                widthFactor: 0.4,
-                child: TextFormField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      hintText: "City",
-                      border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 32.0),
-                          borderRadius: BorderRadius.circular(5.0)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0))),
-                  onChanged: (value) {
-                    city = value;
-                  },
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          hintText: "City",
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 32.0),
+                              borderRadius: BorderRadius.circular(5.0)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: const BorderSide(
+                                  color: Colors.grey, width: 1.0))),
+                      onChanged: (value) {
+                        city = value;
+                      },
+                    ),
+                  ),
                 ),
-              ),
-              FractionallySizedBox(
-                widthFactor: 0.2,
-                child: TextFormField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      hintText: "State",
-                      border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 32.0),
-                          borderRadius: BorderRadius.circular(5.0)),
-                      focusedBorder: OutlineInputBorder(
+                Flexible(
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: "State",
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 32.0),
+                            borderRadius: BorderRadius.circular(5.0)),
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
-                          borderSide: const BorderSide(
-                              color: Colors.grey, width: 1.0))),
-                  onChanged: (value) {
-                    state = value;
-                  },
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        state = value;
+                      },
+                    ),
+                  ),
                 ),
-              ),
-              ElevatedButton(
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
                   onPressed: () async {
                     List<Location> locations =
                         await locationFromAddress("$address, $city").catchError(
@@ -265,66 +289,70 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: const Text("Enter")),
-              ElevatedButton(
-                  onPressed: _getCurrentPosition,
-                  child: const Text("Use Current Location")),
-              ElevatedButton(
+                  child: const Text("Enter Destination"),
+                ),
+                ElevatedButton(
+                    onPressed: _getCurrentPosition,
+                    child: const Text("Current Location")),
+              ],
+            ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.of(context)
+            //           .push(MaterialPageRoute(builder: (BuildContext context) {
+            //         return const HomePage();
+            //       }));
+            //     },
+            //     child: const Text("Use Google Maps"),),
+            // Padding(
+            //   padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+            //   child: SizedBox(
+            //     width: boxWidth,
+            //     height: boxHeight,
+            //     child: ElevatedButton(
+            //       onPressed: () {
+            //         // Navigator.of(context).push(
+            //         //   MaterialPageRoute(
+            //         //     builder: (BuildContext context) {
+            //         //       return const FindParkingPage(
+            //         //           latitude: 42.276299225733396,
+            //         //           longitude: -71.79985474457845,
+            //         //           relation: "from you");
+            //         //     },
+            //         //   ),
+            //         // );
+            //       },
+            //       child: Align(
+            //         alignment: Alignment.center,
+            //         child: Text(
+            //           addParkingName,
+            //           style: TextStyle(fontSize: boxWidth / 10),
+            //           textAlign: TextAlign.center,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+              child: SizedBox(
+                width: logoutWidth,
+                height: logOutHeight,
+                child: ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
-                      return const HomePage();
+                      return const MyApp();
                     }));
                   },
-                  child: const Text("Use Google Maps")),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (BuildContext context) {
-                      //       return const FindParkingPage(
-                      //           latitude: 42.276299225733396,
-                      //           longitude: -71.79985474457845,
-                      //           relation: "from you");
-                      //     },
-                      //   ),
-                      // );
-                    },
-                    child: Text(
-                      addParkingName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
+                  child: Text(
+                    logOutName,
+                    style: TextStyle(fontSize: (logoutWidth) / 7),
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: logoutWidth,
-                  height: logOutHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return const MyApp();
-                      }));
-                    },
-                    child: Text(
-                      logOutName,
-                      style: TextStyle(fontSize: (logoutWidth) / 7),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
