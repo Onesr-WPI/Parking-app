@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           FractionallySizedBox(
                             widthFactor: 0.8,
-                            child: TextField(
+                            child: TextFormField(
                               keyboardType: TextInputType.emailAddress,
                               controller: _email,
                               decoration: const InputDecoration(
@@ -140,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           FractionallySizedBox(
                             widthFactor: 0.8,
-                            child: TextField(
+                            child: TextFormField(
                               keyboardType: TextInputType.text,
                               obscureText: true,
                               controller: _password,

@@ -82,38 +82,39 @@ class FindParkingState extends State<FindParkingPage> {
     List<Widget> spotList = List.empty();
     spots().then((value) => {spotList = value});
     return FutureBuilder<List<Widget>>(
-        future: spots(),
-        builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text("Find Parking", textAlign: TextAlign.center),
-              ),
-              body: Center(
-                child: SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: spotList,
-                          ),
+      future: spots(),
+      builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text("Find Parking", textAlign: TextAlign.center),
+            ),
+            body: Center(
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  //crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: spotList,
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-            );
-          } else {
-            return const CircularProgressIndicator(
-              color: Color.fromARGB(255, 255, 255, 255),
-            );
-          }
-        });
+            ),
+          );
+        } else {
+          return const CircularProgressIndicator(
+            color: Color.fromARGB(255, 255, 255, 255),
+          );
+        }
+      },
+    );
   }
 }

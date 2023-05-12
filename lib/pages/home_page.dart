@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Home", textAlign: TextAlign.center),
         leading: IconButton(
             icon: const Icon(
-              Icons.account_circle_sharp,
+              Icons.menu,
             ),
             onPressed: () {}),
         actions: [
