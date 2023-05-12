@@ -96,86 +96,119 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               body: Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Text("Please log in to use the app."),
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: TextField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: _email,
-                        decoration: const InputDecoration(
-                          hintText: "Email Address",
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                      child: Image.asset(
+                        "assets/images/Park_King_Logo.png",
+                        scale: 0.2,
+                        height: 200,
                       ),
                     ),
-                    FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        obscureText: true,
-                        controller: _password,
-                        decoration: const InputDecoration(
-                          hintText: "Password",
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            final email = _email.text;
-                            final password = _password.text;
-                            FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                                    email: email, password: password)
-                                .then((value) {
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 200),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
+                            child: FractionallySizedBox(
+                              widthFactor: 0.8,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Please log in to use the app.",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          FractionallySizedBox(
+                            widthFactor: 0.8,
+                            child: TextField(
+                              keyboardType: TextInputType.emailAddress,
+                              controller: _email,
+                              decoration: const InputDecoration(
+                                hintText: "Email Address",
+                              ),
+                            ),
+                          ),
+                          FractionallySizedBox(
+                            widthFactor: 0.8,
+                            child: TextField(
+                              keyboardType: TextInputType.text,
+                              obscureText: true,
+                              controller: _password,
+                              decoration: const InputDecoration(
+                                hintText: "Password",
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                            child: FractionallySizedBox(
+                              widthFactor: 0.8,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  final email = _email.text;
+                                  final password = _password.text;
+                                  FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: email, password: password)
+                                      .then((value) {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) {
+                                      return const HomePage();
+                                    }));
+                                  });
+                                },
+                                child: const Text("Log In"),
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) {
-                                return const HomePage();
+                                return const RegistrationPage();
                               }));
-                            });
-                          },
-                          child: const Text("Log In"),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) {
-                              return const RegistrationPage();
-                            }));
-                          },
-                          child: Text(registrationName),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return const HomePage();
-                                  },
-                                ),
-                              );
                             },
-                            child: const Text("Continue As Guest")),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) {
-                              return const TestPage();
-                            }));
-                          },
-                          child: Text("test"),
-                        ),
-                      ],
-                    )
+                            child: Text(registrationName),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                          return const HomePage();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  child: const Text("Continue As Guest")),
+                              // ElevatedButton(
+                              //   onPressed: () {
+                              //     Navigator.of(context).push(MaterialPageRoute(
+                              //         builder: (BuildContext context) {
+                              //       return const TestPage();
+                              //     }));
+                              //   },
+                              //   child: Text("test"),
+                              // ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

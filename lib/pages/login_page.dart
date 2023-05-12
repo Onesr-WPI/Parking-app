@@ -56,6 +56,7 @@ class _LogInPageState extends State<LogInPage> {
                       ),
                       TextField(
                         keyboardType: TextInputType.text,
+                        enableSuggestions: false,
                         obscureText: true,
                         controller: _password,
                         decoration: const InputDecoration(

@@ -23,7 +23,7 @@ class ViewLotPage extends StatefulWidget {
   final double destinationLongitude;
   final double latitude;
   final double longitude;
-  final int spots; //TODO add addresses to firebase and this constructor
+  final int spots;
   final String name;
 
   @override
@@ -55,7 +55,7 @@ class ViewLotPageState extends State<ViewLotPage> {
         },
       );
     } catch (e) {
-      print('$e');
+      debugPrint('$e');
     }
   }
 
@@ -69,7 +69,7 @@ class ViewLotPageState extends State<ViewLotPage> {
       Placemark place = placemarks[0];
       setState(() {
         _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+            '${place.street != '' ? '${place.street}, ' : ''}${place.subLocality != '' ? '${place.subLocality}, ' : ''}${place.subAdministrativeArea != '' ? '${place.subAdministrativeArea}, ' : ''}${place.postalCode != '' ? '${place.postalCode}' : ''}';
       });
     }).catchError((e) {
       debugPrint('$e');
@@ -83,8 +83,8 @@ class ViewLotPageState extends State<ViewLotPage> {
   @override
   void initState() {
     super.initState();
+    _getDistanceMatrix();
     _getAddressFromLatLngDouble(widget.latitude, widget.longitude);
-    _getDistanceMatrix;
   }
 
   @override
@@ -127,7 +127,7 @@ class ViewLotPageState extends State<ViewLotPage> {
                 onPressed: () {
                   MapUtils.openMap(widget.latitude, widget.longitude);
                 },
-                child: Text("Open in Maps")),
+                child: const Text("Open in Maps")),
             SizedBox(
               height: infoHeight,
               width: infoWidth,
@@ -140,20 +140,20 @@ class ViewLotPageState extends State<ViewLotPage> {
                       children: [
                         Text(
                           "Destination Address: ${widget.destinationAddress}",
-                          style: TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 20),
                         ),
                         // if (_currentAddress != null)
                         Text(
-                          "Parking Lot Address: $_currentAddress",
-                          style: TextStyle(fontSize: 20),
+                          "Parking Lot Address: ${_currentAddress ?? "Loading..."}",
+                          style: const TextStyle(fontSize: 20),
                         ),
                         Text(
                           "Total # Of Spots: ${widget.spots}",
-                          style: TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 20),
                         ),
                         Text(
-                          "Time for Walking: ${_map?['rows'][0]['elements'][0]['duration']['text']}",
-                          style: TextStyle(fontSize: 20),
+                          "Walking Time: ${_map?['rows'][0]['elements'][0]['duration']['text'] ?? "Loading..."}",
+                          style: const TextStyle(fontSize: 20),
                         ),
                       ],
                     ),
@@ -165,7 +165,7 @@ class ViewLotPageState extends State<ViewLotPage> {
                   // ),
                 ],
               ),
-              // Text("Destination Coordinates: ${widget.destinationLatitude},${widget.destinationLongitude} Destination Address: ${widget.destinationAddress} Parking Lot Coordinates: ${widget.latitude},${widget.longitude} Parking Lot Address: ${_currentAddress} Spots: ${widget.spots} "), //TODO add formatting, google maps, address
+              // Text("Destination Coordinates:
             ),
           ],
         ),
