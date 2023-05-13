@@ -10,8 +10,8 @@ class SelectSpotPage extends StatelessWidget {
     String findSpotThereName = "Find a Spot from a Destination";
     String addParkingName = "Add a Parking Spot Location";
     String logOutName = "Log Out";
-    double boxWidth = MediaQuery.of(context).size.width * 0.9;
-    double boxHeight = (MediaQuery.of(context).size.height - 115) * 0.30;
+    double boxWidth = MediaQuery.of(context).size.width * 0.75;
+    double boxHeight = (MediaQuery.of(context).size.height - 115) * 0.10;
     double logoutWidth = MediaQuery.of(context).size.width * 0.3;
     double logOutHeight = MediaQuery.of(context).size.height * 0.05;
     double paddingAmount = ((MediaQuery.of(context).size.height - 115) -
