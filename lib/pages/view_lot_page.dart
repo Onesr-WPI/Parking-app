@@ -155,6 +155,10 @@ class ViewLotPageState extends State<ViewLotPage> {
                           "Walking Time: ${_map?['rows'][0]['elements'][0]['duration']['text'] ?? "Loading..."}",
                           style: const TextStyle(fontSize: 20),
                         ),
+                        Text(
+                          "Distance: ${(_map?['rows'][0]['elements'][0]['distance']['value'] ?? 0)} meters",
+                          style: const TextStyle(fontSize: 20),
+                        )
                       ],
                     ),
                   ),
