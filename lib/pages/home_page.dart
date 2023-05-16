@@ -3,7 +3,6 @@ import 'package:parking/pages/find_parking_page.dart';
 import 'package:parking/main.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:parking/pages/enter_destination_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -242,6 +241,7 @@ class _HomePageState extends State<HomePage> {
                             widthFactor: 0.8,
                             child: TextFormField(
                               keyboardType: TextInputType.text,
+                              enableSuggestions: false,
                               decoration: InputDecoration(
                                 hintText: "State",
                                 border: OutlineInputBorder(

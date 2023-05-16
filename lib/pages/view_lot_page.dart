@@ -38,7 +38,6 @@ class ViewLotPageState extends State<ViewLotPage> {
     }
   }
 
-  Response<dynamic>? _response;
   Map<String, dynamic>? _map;
 
   void _getDistanceMatrix() async {
@@ -50,7 +49,6 @@ class ViewLotPageState extends State<ViewLotPage> {
         (Response<dynamic> response) {
           setState(() {
             _map = jsonDecode('$response');
-            _response = response;
           });
         },
       );
@@ -148,7 +146,7 @@ class ViewLotPageState extends State<ViewLotPage> {
                           style: const TextStyle(fontSize: 20),
                         ),
                         Text(
-                          "Total # Of Spots: ${widget.spots}",
+                          "Total Number Of Spots: ${widget.spots}",
                           style: const TextStyle(fontSize: 20),
                         ),
                         Text(

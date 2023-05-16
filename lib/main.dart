@@ -94,122 +94,131 @@ class _MyHomePageState extends State<MyHomePage> {
               appBar: AppBar(
                 title: Text(widget.title),
               ),
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      child: Image.asset(
-                        "assets/images/Park_King_Logo.png",
-                        scale: 0.2,
-                        height: 200,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 200),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
-                            child: FractionallySizedBox(
-                              widthFactor: 0.8,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "Please log in to use the app.",
-                                  style: TextStyle(
-                                    fontSize: 20,
+              body: SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: MediaQuery.of(context).size.width,
+                    minHeight: MediaQuery.of(context).size.height,
+                  ),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                          child: Image.asset(
+                            "assets/images/Park_King_Logo.png",
+                            scale: 0.2,
+                            height: 200,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.8,
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Please log in to use the app.",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          FractionallySizedBox(
-                            widthFactor: 0.8,
-                            child: TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              controller: _email,
-                              decoration: const InputDecoration(
-                                hintText: "Email Address",
+                              FractionallySizedBox(
+                                widthFactor: 0.8,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.emailAddress,
+                                  controller: _email,
+                                  decoration: const InputDecoration(
+                                    hintText: "Email Address",
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          FractionallySizedBox(
-                            widthFactor: 0.8,
-                            child: TextFormField(
-                              keyboardType: TextInputType.text,
-                              obscureText: true,
-                              controller: _password,
-                              decoration: const InputDecoration(
-                                hintText: "Password",
+                              FractionallySizedBox(
+                                widthFactor: 0.8,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  controller: _password,
+                                  decoration: const InputDecoration(
+                                    hintText: "Password",
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                            child: FractionallySizedBox(
-                              widthFactor: 0.8,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  final email = _email.text;
-                                  final password = _password.text;
-                                  FirebaseAuth.instance
-                                      .signInWithEmailAndPassword(
-                                          email: email, password: password)
-                                      .then((value) {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) {
-                                      return const HomePage();
-                                    }));
-                                  });
-                                },
-                                child: const Text("Log In"),
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return const RegistrationPage();
-                              }));
-                            },
-                            child: Text(registrationName),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) {
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.8,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      final email = _email.text;
+                                      final password = _password.text;
+                                      FirebaseAuth.instance
+                                          .signInWithEmailAndPassword(
+                                              email: email, password: password)
+                                          .then((value) {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(builder:
+                                                (BuildContext context) {
                                           return const HomePage();
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  child: const Text("Continue As Guest")),
-                              // ElevatedButton(
-                              //   onPressed: () {
-                              //     Navigator.of(context).push(MaterialPageRoute(
-                              //         builder: (BuildContext context) {
-                              //       return const TestPage();
-                              //     }));
-                              //   },
-                              //   child: Text("test"),
-                              // ),
+                                        }));
+                                      });
+                                    },
+                                    child: const Text("Log In"),
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                    return const RegistrationPage();
+                                  }));
+                                },
+                                child: Text(registrationName),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (BuildContext context) {
+                                              return const HomePage();
+                                            },
+                                          ),
+                                        );
+                                      },
+                                      child: const Text("Continue As Guest")),
+                                  // ElevatedButton(
+                                  //   onPressed: () {
+                                  //     Navigator.of(context).push(MaterialPageRoute(
+                                  //         builder: (BuildContext context) {
+                                  //       return const TestPage();
+                                  //     }));
+                                  //   },
+                                  //   child: Text("test"),
+                                  // ),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             );
