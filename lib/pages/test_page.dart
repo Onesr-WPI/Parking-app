@@ -28,7 +28,7 @@ class _TestPageState extends State<TestPage> {
         },
       );
     } catch (e) {
-      print('$e');
+      debugPrint('$e');
     }
   }
 
@@ -139,7 +139,7 @@ class _TestPageState extends State<TestPage> {
               Text('LAT: ${_currentPosition?.latitude ?? ""}'),
               Text('LNG: ${_currentPosition?.longitude ?? ""}'),
               Text('ADDRESS: ${_currentAddress ?? ""}'),
-              Text('google maps: ${_response}'),
+              Text('google maps: $_response'),
               Text(
                   'google maps 2: ${_map?['rows'][0]['elements'][0]['duration']['text']}'),
               const SizedBox(height: 32),
