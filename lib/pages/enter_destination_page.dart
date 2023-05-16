@@ -13,7 +13,7 @@ class EnterDestinationPage extends StatefulWidget {
 
 class _EnterDestinationPageState extends State<EnterDestinationPage> {
   String? _currentAddress;
-  Position? _currentPosition;
+  // Position? _currentPosition;
   String address = "";
   String city = "";
   String state = "";
@@ -102,19 +102,19 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
     });
   }
 
-  Future<void> _getAddressFromLatLng(Position position) async {
-    await placemarkFromCoordinates(
-            _currentPosition!.latitude, _currentPosition!.longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
-      });
-    }).catchError((e) {
-      debugPrint('$e');
-    });
-  }
+  // Future<void> _getAddressFromLatLng(Position position) async {
+  //   await placemarkFromCoordinates(
+  //           _currentPosition!.latitude, _currentPosition!.longitude)
+  //       .then((List<Placemark> placemarks) {
+  //     Placemark place = placemarks[0];
+  //     setState(() {
+  //       _currentAddress =
+  //           '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+  //     });
+  //   }).catchError((e) {
+  //     debugPrint('$e');
+  //   });
+  // }
 
   Future<void> _getAddressFromLatLngDouble(
       double latitude, double longitude) async {
