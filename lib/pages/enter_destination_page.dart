@@ -259,14 +259,6 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                     _getCurrentPosition();
                   },
                   child: const Text("Use Current Location")),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const HomePage();
-                    }));
-                  },
-                  child: const Text("Use Google Maps")),
             ],
           ),
         ),

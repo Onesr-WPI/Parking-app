@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint('$e');
       showDialog(
           context: context,
           builder: (BuildContext context) {
