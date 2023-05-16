@@ -118,22 +118,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String addParkingName = "Add a Parking Spot Location";
-    String logOutName = "Log Out";
+    // String addParkingName = "Add a Parking Spot Location";
+    // String logOutName = "Log Out";
     double headerHeight = 56;
     double paddingAmount = 5;
-    double boxWidth = MediaQuery.of(context).size.width * 0.3;
-    double boxHeight = (MediaQuery.of(context).size.height -
-            headerHeight -
-            24 -
-            6 * paddingAmount) *
-        0.1;
-    double logoutWidth = MediaQuery.of(context).size.width * 0.2;
-    double logOutHeight = (MediaQuery.of(context).size.height -
-            headerHeight -
-            24 -
-            6 * paddingAmount) *
-        0.05;
+    // double boxWidth = MediaQuery.of(context).size.width * 0.3;
+    // double boxHeight = (MediaQuery.of(context).size.height -
+    //         headerHeight -
+    //         24 -
+    //         6 * paddingAmount) *
+    //     0.1;
+    // double logoutWidth = MediaQuery.of(context).size.width * 0.2;
+    // double logOutHeight = (MediaQuery.of(context).size.height -
+    //         headerHeight -
+    //         24 -
+    //         6 * paddingAmount) *
+    //     0.05;
 
     return Scaffold(
       appBar: AppBar(
@@ -160,186 +160,201 @@ class _HomePageState extends State<HomePage> {
         ],
         toolbarHeight: headerHeight,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Align(
-                      alignment: Alignment.topCenter,
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(0, 50, 0, 20),
-                        child: Text(
-                          "Where would you like to go today?",
-                          style: TextStyle(fontSize: 20),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: FractionallySizedBox(
-                        widthFactor: 0.8,
-                        child: TextFormField(
-                          enableSuggestions: false,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            hintText: "Address",
-                            border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.black, width: 32.0),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: const BorderSide(
-                                  color: Colors.black, width: 1.0),
-                            ),
-                          ),
-                          onChanged: (value) {
-                            address = value;
-                          },
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: FractionallySizedBox(
-                            widthFactor: 0.8,
-                            child: TextFormField(
-                              enableSuggestions: false,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                hintText: "City",
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: Colors.black, width: 32.0),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: const BorderSide(
-                                      color: Colors.black, width: 1.0),
-                                ),
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width,
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: IntrinsicHeight(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Flexible(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0, 50, 0, 20),
+                              child: Text(
+                                "Where would you like to go today?",
+                                style: TextStyle(fontSize: 20),
+                                textAlign: TextAlign.center,
                               ),
-                              onChanged: (value) {
-                                city = value;
-                              },
                             ),
                           ),
-                        ),
-                        Flexible(
-                          child: FractionallySizedBox(
-                            widthFactor: 0.8,
-                            child: TextFormField(
-                              keyboardType: TextInputType.text,
-                              enableSuggestions: false,
-                              decoration: InputDecoration(
-                                hintText: "State",
-                                border: OutlineInputBorder(
+                          Flexible(
+                            child: FractionallySizedBox(
+                              widthFactor: 0.8,
+                              child: TextFormField(
+                                enableSuggestions: false,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  hintText: "Address",
+                                  border: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                         color: Colors.black, width: 32.0),
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  borderSide: const BorderSide(
-                                      color: Colors.black, width: 1.0),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderSide: const BorderSide(
+                                        color: Colors.black, width: 1.0),
+                                  ),
                                 ),
+                                onChanged: (value) {
+                                  address = value;
+                                },
                               ),
-                              onChanged: (value) {
-                                state = value;
-                              },
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Flexible(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          List<Location> locations =
-                              await locationFromAddress("$address, $city")
-                                  .catchError(
-                            (e) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    content: Stack(
-                                      children: <Widget>[
-                                        Positioned(
-                                          right: -40.0,
-                                          top: -40.0,
-                                          child: InkResponse(
-                                            onTap: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const CircleAvatar(
-                                              backgroundColor: Colors.red,
-                                              child: Icon(Icons.close),
-                                            ),
-                                          ),
-                                        ),
-                                        Text('$e'),
-                                      ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.8,
+                                  child: TextFormField(
+                                    enableSuggestions: false,
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                      hintText: "City",
+                                      border: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            color: Colors.black, width: 32.0),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        borderSide: const BorderSide(
+                                            color: Colors.black, width: 1.0),
+                                      ),
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                          );
-                          await _getAddressFromLatLngDouble(
-                              locations[0].latitude, locations[0].longitude);
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return FindParkingPage(
-                                  latitude: locations[0].latitude,
-                                  longitude: locations[0].longitude,
-                                  address: _currentAddress!,
-                                  relation: "from your destination",
-                                );
-                              },
-                            ),
-                          );
-                        },
-                        child: const Text("Use Destination Address"),
+                                    onChanged: (value) {
+                                      city = value;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.8,
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.text,
+                                    enableSuggestions: false,
+                                    decoration: InputDecoration(
+                                      hintText: "State",
+                                      border: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                              color: Colors.black, width: 32.0),
+                                          borderRadius:
+                                              BorderRadius.circular(5.0)),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                        borderSide: const BorderSide(
+                                            color: Colors.black, width: 1.0),
+                                      ),
+                                    ),
+                                    onChanged: (value) {
+                                      state = value;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(0),
-                    child: FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: ElevatedButton(
-                          onPressed: _getCurrentPosition,
-                          child: const Text("Use Current Location")),
+                  Flexible(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: FractionallySizedBox(
+                            widthFactor: 0.8,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                List<Location> locations =
+                                    await locationFromAddress("$address, $city")
+                                        .catchError(
+                                  (e) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          content: Stack(
+                                            children: <Widget>[
+                                              Positioned(
+                                                right: -40.0,
+                                                top: -40.0,
+                                                child: InkResponse(
+                                                  onTap: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: const CircleAvatar(
+                                                    backgroundColor: Colors.red,
+                                                    child: Icon(Icons.close),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text('$e'),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                                await _getAddressFromLatLngDouble(
+                                    locations[0].latitude,
+                                    locations[0].longitude);
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return FindParkingPage(
+                                        latitude: locations[0].latitude,
+                                        longitude: locations[0].longitude,
+                                        address: _currentAddress!,
+                                        relation: "from your destination",
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: const Text("Use Destination Address"),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(0),
+                          child: FractionallySizedBox(
+                            widthFactor: 0.8,
+                            child: ElevatedButton(
+                                onPressed: _getCurrentPosition,
+                                child: const Text("Use Current Location")),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
