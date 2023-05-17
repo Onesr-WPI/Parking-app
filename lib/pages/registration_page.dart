@@ -41,111 +41,120 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 appBar: AppBar(
                   title: const Text("Registration Page"),
                 ),
-                body: Container(
+                body: SingleChildScrollView(
                   padding: const EdgeInsets.all(8),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const FractionallySizedBox(
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
-                              child: Text(
-                                "Register an account here:",
-                                style: TextStyle(fontSize: 15),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Flexible(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Flexible(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minWidth: MediaQuery.of(context).size.width,
+                      minHeight: MediaQuery.of(context).size.height,
+                    ),
+                    child: IntrinsicHeight(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const FractionallySizedBox(
+                              child: Align(
+                                alignment: Alignment.topCenter,
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                                  child: FractionallySizedBox(
-                                    widthFactor: 0.8,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.text,
-                                      decoration: const InputDecoration(
-                                        hintText: "First Name",
-                                      ),
-                                    ),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                                  child: Text(
+                                    "Register an account here:",
+                                    style: TextStyle(fontSize: 15),
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ),
-                              Flexible(
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                  child: FractionallySizedBox(
-                                    widthFactor: 0.8,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.text,
-                                      decoration: const InputDecoration(
-                                        hintText: "Last Name",
+                            ),
+                            Flexible(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 0, 10, 0),
+                                      child: FractionallySizedBox(
+                                        widthFactor: 0.8,
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.text,
+                                          decoration: const InputDecoration(
+                                            hintText: "First Name",
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
+                                  Flexible(
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 0, 0),
+                                      child: FractionallySizedBox(
+                                        widthFactor: 0.8,
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.text,
+                                          decoration: const InputDecoration(
+                                            hintText: "Last Name",
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            FractionallySizedBox(
+                              widthFactor: 0.8,
+                              child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
+                                controller: _email,
+                                decoration: const InputDecoration(
+                                  hintText: "Email Address",
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: _email,
-                            decoration: const InputDecoration(
-                              hintText: "Email Address",
                             ),
-                          ),
-                        ),
-                        FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              hintText: "Username",
+                            FractionallySizedBox(
+                              widthFactor: 0.8,
+                              child: TextFormField(
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                  hintText: "Username",
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        FractionallySizedBox(
-                          widthFactor: 0.8,
-                          child: TextFormField(
-                            keyboardType: TextInputType.text,
-                            enableSuggestions: false,
-                            obscureText: true,
-                            controller: _password,
-                            decoration: const InputDecoration(
-                              hintText: "Password",
+                            FractionallySizedBox(
+                              widthFactor: 0.8,
+                              child: TextFormField(
+                                keyboardType: TextInputType.text,
+                                enableSuggestions: false,
+                                obscureText: true,
+                                controller: _password,
+                                decoration: const InputDecoration(
+                                  hintText: "Password",
+                                ),
+                              ),
                             ),
-                          ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 40, 0, 120),
+                              child: FractionallySizedBox(
+                                widthFactor: 0.8,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      final email = _email.text;
+                                      final password = _password.text;
+                                      final userCredential = FirebaseAuth
+                                          .instance
+                                          .createUserWithEmailAndPassword(
+                                              email: email, password: password)
+                                          .then((value) {});
+                                    },
+                                    child: const Text("Register")),
+                              ),
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 40, 0, 120),
-                          child: FractionallySizedBox(
-                            widthFactor: 0.8,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  final email = _email.text;
-                                  final password = _password.text;
-                                  final userCredential = FirebaseAuth.instance
-                                      .createUserWithEmailAndPassword(
-                                          email: email, password: password)
-                                      .then((value) {});
-                                },
-                                child: const Text("Register")),
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                 ),

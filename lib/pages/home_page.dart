@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? _currentAddress;
-  Position? _currentPosition;
+  // Position? _currentPosition;
   String address = "";
   String city = "";
   String state = "";
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
     // String addParkingName = "Add a Parking Spot Location";
     // String logOutName = "Log Out";
     double headerHeight = 56;
-    double paddingAmount = 5;
+    // double paddingAmount = 5;
     // double boxWidth = MediaQuery.of(context).size.width * 0.3;
     // double boxHeight = (MediaQuery.of(context).size.height -
     //         headerHeight -
@@ -138,11 +138,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home", textAlign: TextAlign.center),
-        leading: IconButton(
-            icon: const Icon(
-              Icons.menu,
-            ),
-            onPressed: () {}),
+        // leading: IconButton(
+        //     icon: const Icon(
+        //       Icons.menu,
+        //     ),
+        //     onPressed: () {}),
         actions: [
           IconButton(
               icon: const Icon(
@@ -159,6 +159,69 @@ class _HomePageState extends State<HomePage> {
               }),
         ],
         toolbarHeight: headerHeight,
+      ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF7D2029),
+              ),
+              child:
+                  // Wrap(
+                  //   children: <Widget>[
+                  //     const Text(
+                  //       'Navigation',
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontSize: 20,
+                  //       ),
+                  //     ),
+                  UserAccountsDrawerHeader(
+                accountName: Text("Name"),
+                accountEmail: Text("Description / Mail"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
+                  backgroundImage: NetworkImage(
+                      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'),
+                ),
+                // You can add some more properties
+              ),
+              // IconButton(
+              //     icon: const Icon(
+              //       Icons.menu,
+              //     ),
+              //     onPressed: () {
+              //       Navigator.pop(context);
+              //     },),
+              // ],
+              // ),
+            ),
+            ListTile(
+              title: const Text('Leaderboards (WIP)'),
+              onTap: () {
+                // Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Events (WIP)'),
+              onTap: () {
+                // Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Settings (WIP)'),
+              onTap: () {
+                // Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: ConstrainedBox(
