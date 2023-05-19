@@ -73,7 +73,31 @@ class ViewLotPageState extends State<ViewLotPage> {
             '${place.street != '' ? '${place.street}, ' : ''}${place.subLocality != '' ? '${place.subLocality}, ' : ''}${place.subAdministrativeArea != '' ? '${place.subAdministrativeArea}, ' : ''}${place.postalCode != '' ? '${place.postalCode}' : ''}';
       });
     }).catchError((e) {
-      debugPrint('$e');
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Stack(
+              children: <Widget>[
+                Positioned(
+                  right: -40.0,
+                  top: -40.0,
+                  child: InkResponse(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const CircleAvatar(
+                      backgroundColor: Colors.red,
+                      child: Icon(Icons.close),
+                    ),
+                  ),
+                ),
+                Text('$e'),
+              ],
+            ),
+          );
+        },
+      );
     });
   }
 
@@ -160,7 +184,7 @@ class ViewLotPageState extends State<ViewLotPage> {
                           style: const TextStyle(fontSize: 20),
                         ),
                         Text(
-                          "Walking Time: ${_map?['rows'][0]['elements'][0]['duration']['text'] ?? "Loading..."}", //display of walking time; filters json result for the value
+                          "Walking Time: ${_map?['rows'][0]['elements'][0]['duration']?['text'] ?? "Loading..."}",
                           style: const TextStyle(fontSize: 20),
                         ),
                       ],

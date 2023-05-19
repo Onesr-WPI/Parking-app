@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:parking/main.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../firebase_options.dart';
@@ -143,11 +144,49 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     onPressed: () {
                                       final email = _email.text;
                                       final password = _password.text;
-                                      final userCredential = FirebaseAuth
-                                          .instance
+                                      FirebaseAuth.instance
                                           .createUserWithEmailAndPassword(
                                               email: email, password: password)
-                                          .then((value) {});
+                                          .then(
+                                        (value) {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (BuildContext context) {
+                                                return const MyApp();
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ).catchError((e) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              content: Stack(
+                                                children: <Widget>[
+                                                  Positioned(
+                                                    right: -40.0,
+                                                    top: -40.0,
+                                                    child: InkResponse(
+                                                      onTap: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child: const CircleAvatar(
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                        child:
+                                                            Icon(Icons.close),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text('$e'),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      });
                                     },
                                     child: const Text("Register")),
                               ),

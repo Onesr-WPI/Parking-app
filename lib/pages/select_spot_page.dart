@@ -1,3 +1,5 @@
+// This page is unused, integrted into find_parking page
+
 import 'package:flutter/material.dart';
 import 'package:parking/main.dart';
 
@@ -24,107 +26,97 @@ class SelectSpotPage extends StatelessWidget {
         title: const Text("Home", textAlign: TextAlign.center),
       ),
       body: Center(
-        child: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
-                        ),
-                      );
-                    },
-                    child: Text(
-                      findSpotHereName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+              child: SizedBox(
+                width: boxWidth,
+                height: boxHeight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const MyApp();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(
+                    findSpotHereName,
+                    style: TextStyle(fontSize: boxWidth / 20),
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
-                        ),
-                      );
-                    },
-                    child: Text(
-                      findSpotThereName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+              child: SizedBox(
+                width: boxWidth,
+                height: boxHeight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const MyApp();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(
+                    findSpotThereName,
+                    style: TextStyle(fontSize: boxWidth / 20),
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: boxWidth,
-                  height: boxHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
-                        ),
-                      );
-                    },
-                    child: Text(
-                      addParkingName,
-                      style: TextStyle(fontSize: boxWidth / 20),
-                    ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+              child: SizedBox(
+                width: boxWidth,
+                height: boxHeight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const MyApp();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(
+                    addParkingName,
+                    style: TextStyle(fontSize: boxWidth / 20),
                   ),
                 ),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
-                child: SizedBox(
-                  width: logoutWidth,
-                  height: logOutHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return const MyApp();
-                          },
-                        ),
-                      );
-                    },
-                    child: Text(
-                      logOutName,
-                      style: TextStyle(fontSize: (logoutWidth) / 7),
-                    ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, paddingAmount, 0, paddingAmount),
+              child: SizedBox(
+                width: logoutWidth,
+                height: logOutHeight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const MyApp();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(
+                    logOutName,
+                    style: TextStyle(fontSize: (logoutWidth) / 7),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

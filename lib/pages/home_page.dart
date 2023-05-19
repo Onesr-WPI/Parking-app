@@ -104,16 +104,46 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _getAddressFromLatLngDouble(
       double latitude, double longitude) async {
-    await placemarkFromCoordinates(latitude, longitude)
-        .then((List<Placemark> placemarks) {
-      Placemark place = placemarks[0];
-      setState(() {
-        _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
-      });
-    }).catchError((e) {
-      debugPrint(e);
-    });
+    await placemarkFromCoordinates(latitude, longitude).then(
+      (List<Placemark> placemarks) {
+        Placemark place = placemarks[0];
+        setState(
+          () {
+            _currentAddress =
+                '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+          },
+        );
+      },
+    ).catchError(
+      (e) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              content: Stack(
+                children: <Widget>[
+                  Positioned(
+                    right: -40.0,
+                    top: -40.0,
+                    child: InkResponse(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const CircleAvatar(
+                        backgroundColor: Colors.red,
+                        child: Icon(Icons.close),
+                      ),
+                    ),
+                  ),
+                  Text('$e'),
+                ],
+              ),
+            );
+          },
+        );
+        ;
+      },
+    );
   }
 
   @override

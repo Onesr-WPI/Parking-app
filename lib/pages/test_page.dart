@@ -1,3 +1,5 @@
+// Not used in final build --> as title would suggest, used for testing purposes.
+
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
