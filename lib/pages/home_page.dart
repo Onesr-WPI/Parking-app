@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   double latitude = 0.0;
   double longitude = 0.0;
-
+// modified from https://medium.com/@fernnandoptr/how-to-get-users-current-location-address-in-flutter-geolocator-geocoding-be563ad6f66a
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -50,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     return true;
   }
 
+// modified from https://medium.com/@fernnandoptr/how-to-get-users-current-location-address-in-flutter-geolocator-geocoding-be563ad6f66a
   Future<void> _getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
 
@@ -102,6 +103,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+// modified from https://medium.com/@fernnandoptr/how-to-get-users-current-location-address-in-flutter-geolocator-geocoding-be563ad6f66a
   Future<void> _getAddressFromLatLngDouble(
       double latitude, double longitude) async {
     await placemarkFromCoordinates(latitude, longitude).then(
@@ -141,7 +143,6 @@ class _HomePageState extends State<HomePage> {
             );
           },
         );
-        ;
       },
     );
   }
@@ -198,6 +199,7 @@ class _HomePageState extends State<HomePage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
+            // https://stackoverflow.com/questions/64625788/how-to-place-multiple-text-widgets-inside-a-drawerheader
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Color(0xFF7D2029),
@@ -386,6 +388,7 @@ class _HomePageState extends State<HomePage> {
                                         .catchError(
                                   (e) {
                                     showDialog(
+                                      // pop up in case of geolocator error
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
@@ -417,6 +420,7 @@ class _HomePageState extends State<HomePage> {
                                     locations[0].longitude);
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
+                                    // bring list of all parking lots with this location as the parking destination
                                     builder: (BuildContext context) {
                                       return FindParkingPage(
                                         latitude: locations[0].latitude,

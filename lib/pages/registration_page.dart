@@ -17,6 +17,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   void initState() {
+    // needed for firebase
     _email = TextEditingController();
     _password = TextEditingController();
     super.initState();
@@ -24,6 +25,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   void dispose() {
+    // needed for firebase
     _email.dispose();
     _password.dispose();
     super.dispose();
@@ -33,6 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: Firebase.initializeApp(
+          // initialize firebase with page so that it loads with the page
           options: DefaultFirebaseOptions.currentPlatform,
         ),
         builder: (context, snapshot) {
@@ -146,18 +149,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                       final password = _password.text;
                                       FirebaseAuth.instance
                                           .createUserWithEmailAndPassword(
-                                              email: email, password: password)
+                                              // creates a user in firebase using username and password credentials
+                                              email: email,
+                                              password: password)
                                           .then(
                                         (value) {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (BuildContext context) {
-                                                return const MyApp();
+                                                return const MyApp(); // navigates back to main page
                                               },
                                             ),
                                           );
                                         },
                                       ).catchError((e) {
+                                        // pop up in case of error with registration
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {

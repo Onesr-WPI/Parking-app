@@ -18,7 +18,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
 
   double latitude = 0.0;
   double longitude = 0.0;
-
+// modified from https://medium.com/@fernnandoptr/how-to-get-users-current-location-address-in-flutter-geolocator-geocoding-be563ad6f66a
   Future<bool> _handleLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -48,6 +48,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
     return true;
   }
 
+// modified from https://medium.com/@fernnandoptr/how-to-get-users-current-location-address-in-flutter-geolocator-geocoding-be563ad6f66a
   Future<void> _getCurrentPosition() async {
     final hasPermission = await _handleLocationPermission();
 
@@ -99,7 +100,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
           });
     });
   }
-
+// modified from https://medium.com/@fernnandoptr/how-to-get-users-current-location-address-in-flutter-geolocator-geocoding-be563ad6f66a
   // Future<void> _getAddressFromLatLng(Position position) async {
   //   await placemarkFromCoordinates(
   //           _currentPosition!.latitude, _currentPosition!.longitude)
@@ -121,7 +122,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
       Placemark place = placemarks[0];
       setState(() {
         _currentAddress =
-            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}';
+            '${place.street}, ${place.subLocality}, ${place.subAdministrativeArea}, ${place.postalCode}'; // uses the coordinates from firebase + current location to give the address location and timing information
       });
     }).catchError((e) {
       debugPrint(e);
@@ -168,15 +169,17 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                     child: TextFormField(
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: "City",
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.grey, width: 32.0),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: const BorderSide(
-                                  color: Colors.grey, width: 1.0))),
+                        hintText: "City",
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 32.0),
+                            borderRadius: BorderRadius.circular(5.0)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                      ),
                       onChanged: (value) {
                         city = value;
                       },
@@ -186,15 +189,17 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                     child: TextFormField(
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                          hintText: "State",
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.grey, width: 32.0),
-                              borderRadius: BorderRadius.circular(5.0)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: const BorderSide(
-                                  color: Colors.grey, width: 1.0))),
+                        hintText: "State",
+                        border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.grey, width: 32.0),
+                            borderRadius: BorderRadius.circular(5.0)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                      ),
                       onChanged: (value) {
                         state = value;
                       },
@@ -208,6 +213,7 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                         await locationFromAddress("$address, $city").catchError(
                       (e) {
                         showDialog(
+                          // show pop up in case of location address and coordinate error
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
@@ -253,10 +259,11 @@ class _EnterDestinationPageState extends State<EnterDestinationPage> {
                   },
                   child: const Text("Enter")),
               ElevatedButton(
-                  onPressed: () {
-                    _getCurrentPosition();
-                  },
-                  child: const Text("Use Current Location")),
+                onPressed: () {
+                  _getCurrentPosition(); // get current position and use as the destination
+                },
+                child: const Text("Use Current Location"),
+              ),
             ],
           ),
         ),
