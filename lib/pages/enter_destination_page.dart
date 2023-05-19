@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:parking/pages/home_page.dart';
 import 'package:parking/pages/find_parking_page.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,7 +12,6 @@ class EnterDestinationPage extends StatefulWidget {
 
 class _EnterDestinationPageState extends State<EnterDestinationPage> {
   String? _currentAddress;
-  // Position? _currentPosition;
   String address = "";
   String city = "";
   String state = "";

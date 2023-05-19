@@ -18,10 +18,10 @@ class ViewLotPage extends StatefulWidget {
 
     /*required this.address*/
   });
-  final String destinationAddress;
+  final String destinationAddress; //passed in from current/destination info
   final double destinationLatitude;
   final double destinationLongitude;
-  final double latitude;
+  final double latitude; //passed in from firebase, lot info
   final double longitude;
   final int spots;
   final String name;
@@ -41,6 +41,7 @@ class ViewLotPageState extends State<ViewLotPage> {
   Map<String, dynamic>? _map;
 
   void _getDistanceMatrix() async {
+    //for walking time calculation, returns json between lot and destination
     try {
       await Dio()
           .get(
@@ -61,7 +62,9 @@ class ViewLotPageState extends State<ViewLotPage> {
   late GoogleMapController mapController;
 
   Future<void> _getAddressFromLatLngDouble(
-      double latitude, double longitude) async {
+      //utility, uses widget info passed in to get an address
+      double latitude,
+      double longitude) async {
     await placemarkFromCoordinates(latitude, longitude)
         .then((List<Placemark> placemarks) {
       Placemark place = placemarks[0];
@@ -87,14 +90,19 @@ class ViewLotPageState extends State<ViewLotPage> {
 
   @override
   Widget build(BuildContext context) {
-    final LatLng _center = LatLng(widget.latitude, widget.longitude);
+    final LatLng _center = LatLng(
+        widget.latitude, widget.longitude); //center map at lot coordinates
     final Set<Marker> _marker = {
-      Marker(markerId: MarkerId(widget.name), position: _center)
+      Marker(
+          markerId: MarkerId(widget.name),
+          position: _center) //place marker at lot coordinates
     };
     double mapWidth = MediaQuery.of(context).size.width * 0.9;
-    double mapHeight = MediaQuery.of(context).size.height * 0.5;
+    double mapHeight = MediaQuery.of(context).size.height *
+        0.5; //map dimensions, scaled by screen size
     double infoWidth = MediaQuery.of(context).size.width * 0.9;
-    double infoHeight = MediaQuery.of(context).size.height * 0.3;
+    double infoHeight = MediaQuery.of(context).size.height *
+        0.3; //info container dimensions, scaled by screen size
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.name),
@@ -108,6 +116,7 @@ class ViewLotPageState extends State<ViewLotPage> {
               height: mapHeight,
               width: mapWidth,
               child: GoogleMap(
+                //map display
                 onMapCreated: _onMapCreated,
                 myLocationEnabled: true,
                 myLocationButtonEnabled: false,
@@ -116,6 +125,7 @@ class ViewLotPageState extends State<ViewLotPage> {
                 zoomControlsEnabled: false,
                 markers: _marker,
                 initialCameraPosition: CameraPosition(
+                  //show at center
                   target: _center,
                   zoom: 18.0,
                 ),
@@ -123,13 +133,13 @@ class ViewLotPageState extends State<ViewLotPage> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  MapUtils.openMap(widget.latitude, widget.longitude);
+                  MapUtils.openMap(widget.latitude,
+                      widget.longitude); //opens map using url_launcher
                 },
                 child: const Text("Open in Maps")),
             SizedBox(
               height: infoHeight,
               width: infoWidth,
-
               child: Row(
                 children: [
                   Expanded(
@@ -137,33 +147,27 @@ class ViewLotPageState extends State<ViewLotPage> {
                       mainAxisAlignment: MainAxisAlignment.values[5],
                       children: [
                         Text(
-                          "Destination Address: ${widget.destinationAddress}",
+                          "Destination Address: ${widget.destinationAddress}", //display of destination address
                           style: const TextStyle(fontSize: 20),
                         ),
                         // if (_currentAddress != null)
                         Text(
-                          "Parking Lot Address: ${_currentAddress ?? "Loading..."}",
+                          "Parking Lot Address: ${_currentAddress ?? "Loading..."}", //display of current address
                           style: const TextStyle(fontSize: 20),
                         ),
                         Text(
-                          "Total Number Of Spots: ${widget.spots}",
+                          "Total Number Of Spots: ${widget.spots}", //display of spot count
                           style: const TextStyle(fontSize: 20),
                         ),
                         Text(
-                          "Walking Time: ${_map?['rows'][0]['elements'][0]['duration']['text'] ?? "Loading..."}",
+                          "Walking Time: ${_map?['rows'][0]['elements'][0]['duration']['text'] ?? "Loading..."}", //display of walking time; filters json result for the value
                           style: const TextStyle(fontSize: 20),
                         ),
                       ],
                     ),
                   ),
-                  // Expanded(
-                  //   child: Column(
-                  //     mainAxisAlignment: MainAxisAlignment.center,
-                  //   ),
-                  // ),
                 ],
               ),
-              // Text("Destination Coordinates:
             ),
           ],
         ),

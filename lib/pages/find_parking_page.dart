@@ -12,10 +12,11 @@ class FindParkingPage extends StatefulWidget {
       required this.address,
       required this.relation});
 
-  final String address;
+  final String address; //info about destination or current location
   final double latitude;
   final double longitude;
-  final String relation;
+  final String
+      relation; //"from you" or "from your destination", depending on how you reach the page
 
   @override
   State<FindParkingPage> createState() => FindParkingState();
@@ -24,8 +25,9 @@ class FindParkingPage extends StatefulWidget {
 class FindParkingState extends State<FindParkingPage> {
   double paddingAmount = 10;
   Future<List<Widget>> spots() async {
-    List<Widget> list = [];
-    Map<double, Widget> distMap = {};
+    //function to pull from firebase
+    List<Widget> list = []; //final return
+    Map<double, Widget> distMap = {}; //entries to be added for sorting
     var snapshot =
         await FirebaseFirestore.instance.collection("lots_garages").get();
     for (var result in snapshot.docs) {
@@ -49,6 +51,7 @@ class FindParkingState extends State<FindParkingPage> {
                   width: MediaQuery.of(context).size.width * 0.9,
                   height: MediaQuery.of(context).size.height * 0.15,
                   child: ElevatedButton(
+                      //unique button created for each database document
                       onPressed: () {
                         Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
@@ -69,10 +72,10 @@ class FindParkingState extends State<FindParkingPage> {
               ));
     }
     List<double> keys = distMap.keys.toList();
-    keys.sort();
+    keys.sort(); //creates a sorted keylist
     for (double key in keys) {
-      list.add(distMap[key]
-          as Widget); // sorts keys and adds to list in order of sorting
+      list.add(
+          distMap[key] as Widget); // Adds values to list in order of sorting
     }
     return list;
   }
@@ -80,11 +83,12 @@ class FindParkingState extends State<FindParkingPage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> spotList = List.empty();
-    spots().then((value) => {spotList = value});
+    spots().then((value) => {spotList = value}); //run pull function
     return FutureBuilder<List<Widget>>(
       future: spots(),
       builder: (context, AsyncSnapshot<List<Widget>> snapshot) {
         if (snapshot.hasData) {
+          //if data, show list
           return Scaffold(
             appBar: AppBar(
               title: const Text("Find Parking", textAlign: TextAlign.center),
@@ -100,7 +104,8 @@ class FindParkingState extends State<FindParkingPage> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
-                          children: spotList,
+                          children:
+                              spotList, //display spot widgets in scrollable view
                         ),
                       ),
                     )
@@ -111,7 +116,8 @@ class FindParkingState extends State<FindParkingPage> {
           );
         } else {
           return const CircularProgressIndicator(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: Color.fromARGB(
+                255, 255, 255, 255), //if no data, show loading wheel
           );
         }
       },

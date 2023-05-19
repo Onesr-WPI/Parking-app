@@ -12,6 +12,7 @@ void main() {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SystemChrome.setPreferredOrientations([
+    //Portrait mode only - not styled for landscape
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //from https://medium.com/@nickysong/creating-a-custom-color-swatch-in-flutter-554bcdcb27f3
     MaterialColor createMaterialColor(Color color) {
+      //swatch using MAMS red
       List strengths = <double>[.05];
       Map<int, Color> swatch = {};
       final int r = color.red, g = color.green, b = color.blue;
@@ -67,12 +70,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late final TextEditingController _email;
-  late final TextEditingController _password;
+  late final TextEditingController _password; //login info
 
   @override
   void initState() {
     _email = TextEditingController();
-    _password = TextEditingController();
+    _password = TextEditingController(); //controllers for accessing text input
     super.initState();
   }
 
@@ -90,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return FutureBuilder(
       future: Firebase.initializeApp(
+        //await firebase init
         options: DefaultFirebaseOptions.currentPlatform,
       ),
       builder: (context, snapshot) {
@@ -100,6 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 title: Text(widget.title),
               ),
               body: SingleChildScrollView(
+                //sets everything in a scrollview to avoid compression from keyboard
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     minWidth: MediaQuery.of(context).size.width,
@@ -111,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Padding(
+                          //logo
                           padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
                           child: Image.asset(
                             "assets/images/Park_King_Logo.png",
@@ -127,6 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               const Padding(
                                 padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
                                 child: FractionallySizedBox(
+                                  //login prompt
                                   widthFactor: 0.8,
                                   child: Align(
                                     alignment: Alignment.center,
@@ -142,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               FractionallySizedBox(
                                 widthFactor: 0.8,
                                 child: TextFormField(
+                                  //input field for email
                                   keyboardType: TextInputType.emailAddress,
                                   controller: _email,
                                   decoration: const InputDecoration(
@@ -152,6 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               FractionallySizedBox(
                                 widthFactor: 0.8,
                                 child: TextFormField(
+                                  //input field for password
                                   keyboardType: TextInputType.text,
                                   obscureText: true,
                                   controller: _password,
@@ -165,6 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: FractionallySizedBox(
                                   widthFactor: 0.8,
                                   child: ElevatedButton(
+                                    //login option
                                     onPressed: () {
                                       final email = _email.text;
                                       final password = _password.text;
@@ -184,6 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ),
                               TextButton(
+                                //registration option
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (BuildContext context) {
@@ -197,6 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   TextButton(
+                                      //guest option
                                       onPressed: () {
                                         Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -207,15 +219,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                         );
                                       },
                                       child: const Text("Continue As Guest")),
-                                  // ElevatedButton(
-                                  //   onPressed: () {
-                                  //     Navigator.of(context).push(MaterialPageRoute(
-                                  //         builder: (BuildContext context) {
-                                  //       return const TestPage();
-                                  //     }));
-                                  //   },
-                                  //   child: Text("test"),
-                                  // ),
                                 ],
                               ),
                             ],
